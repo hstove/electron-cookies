@@ -13,7 +13,5 @@
   ],
   "author": "Hank Stoever",
   "license": "MIT",
-  "dependencies": {
-    "coffee-script": "^1.9.1"
-  }
+  "homepage": "https://github.com/hstove/atom-shell-cookies"
 }
