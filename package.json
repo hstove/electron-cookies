@@ -1,7 +1,7 @@
 {
-  "name": "atom-shell-cookies",
+  "name": "electron-cookies",
   "version": "0.0.1",
-  "description": "Adds support for cookies in Atom Shell.",
+  "description": "Adds support for cookies in Electron.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +13,5 @@
   ],
   "author": "Hank Stoever",
   "license": "MIT",
-  "homepage": "https://github.com/hstove/atom-shell-cookies"
+  "homepage": "https://github.com/hstove/electron-cookies"
 }

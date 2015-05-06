@@ -1,13 +1,15 @@
-# Atom Shell Cookies
+# Electron Cookies
 
-Adds support for cookies in Atom Shell. Cookies are persisted through localStorage.
+(Formerly called `atom-shell-cookies`)
+
+Adds support for cookies in Electron. Cookies are persisted through localStorage.
 
 Forked from https://gist.github.com/paulcbetts/2d2de55d137a1cf9d1ac.
 
 ## Installation
 
 ```bash
-npm install atom-shell-cookies
+npm install electron-cookies
 ```
 
 ## Usage
@@ -15,7 +17,7 @@ npm install atom-shell-cookies
 In your app's `renderer` code, just require this package:
 
 ```js
-require('atom-shell-cookies')
+require('electron-cookies')
 ```
 
 ## Contributing
