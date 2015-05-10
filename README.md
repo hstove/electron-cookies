@@ -8,7 +8,9 @@ Forked from https://gist.github.com/paulcbetts/2d2de55d137a1cf9d1ac.
 
 ## Why?
 
-There is no built-in support for `document.cookies` inside Electron's renderer environment, so this package adds that functionality. This way, you can use client-side analytics libraries (like Google Analytics) right in your renderer, and things will work swimmingly.
+Electron's `renderer` environment doesn't come with built in support for a `document.cookie` API. Thus, if you want to use Google Analytics or another client-side analytics library, they won't work because they can't set cookies.
+
+By using this package, you can drop client-side analytics code into your app and it will work splendidly.
 
 ## Installation
 
