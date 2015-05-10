@@ -1,30 +1,34 @@
 (function() {
-  var exports;
-
   (function(document) {
     localStorage.cookies || (localStorage.cookies = '{}');
     document.__defineGetter__('cookie', function() {
-      var cookieName, cookies, output, val;
+      var cookieName, cookies, output, res, val, validName;
       cookies = JSON.parse(localStorage.cookies);
       output = [];
       for (cookieName in cookies) {
         val = cookies[cookieName];
-        output.push(cookieName + '=' + val);
+        validName = cookieName && cookieName.length > 0;
+        res = validName ? cookieName + "=" + val : val;
+        output.push(res);
       }
-      return output.join(';');
+      return output.join('; ');
     });
     document.__defineSetter__('cookie', function(s) {
-      var cookies, indexOfSeparator, key, value;
-      indexOfSeparator = s.indexOf('=');
-      key = s.substr(0, indexOfSeparator);
-      value = s.substring(indexOfSeparator + 1);
-      cookies = JSON.parse(localStorage.cookies);
+      var cookies, key, parts, value;
+      parts = s.split('=');
+      if (parts.length === 2) {
+        key = parts[0], value = parts[1];
+      } else {
+        value = parts[0];
+        key = '';
+      }
+      cookies = JSON.parse(localStorage.cookies || '{}');
       cookies[key] = value;
       localStorage.cookies = JSON.stringify(cookies);
       return key + '=' + value;
     });
     document.clearCookies = function() {
-      delete localStorage.cookies;
+      return delete localStorage.cookies;
     };
     document.__defineGetter__('location', function() {
       var url;
@@ -45,15 +49,5 @@
     });
     return document.__defineSetter__('location', function() {});
   })(document);
-
-  module.exports = exports = {
-    track: function(name, opts) {
-      if (process.env.DRYRUN !== 'true') {
-        return analytics.track(name, opts);
-      }
-    }
-  };
-
-  exports.track('app-open');
 
 }).call(this);

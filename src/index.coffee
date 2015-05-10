@@ -4,21 +4,24 @@ do (document) ->
     cookies = JSON.parse(localStorage.cookies)
     output = []
     for cookieName, val of cookies
-      output.push cookieName + '=' + val
-    output.join ';'
+      validName = cookieName && cookieName.length > 0
+      res = if validName then "#{cookieName}=#{val}" else val
+      output.push res
+    output.join '; '
 
   document.__defineSetter__ 'cookie', (s) ->
-    indexOfSeparator = s.indexOf('=')
-    key = s.substr(0, indexOfSeparator)
-    value = s.substring(indexOfSeparator + 1)
-    cookies = JSON.parse(localStorage.cookies)
+    parts = s.split('=')
+    if parts.length == 2
+      [key, value] = parts
+    else
+      [value] = parts
+      key = ''
+    cookies = JSON.parse(localStorage.cookies || '{}')
     cookies[key] = value
     localStorage.cookies = JSON.stringify(cookies)
     key + '=' + value
 
-  document.clearCookies = ->
-    delete localStorage.cookies
-    return
+  document.clearCookies = -> delete localStorage.cookies
 
   # Pretend that we're hosted on an Internet Website
   document.__defineGetter__ 'location', ->
@@ -37,10 +40,3 @@ do (document) ->
     origin: 'http://' + url
 
   document.__defineSetter__ 'location', ->
-
-module.exports = exports =
-  track: (name, opts) ->
-    unless process.env.DRYRUN == 'true'
-      analytics.track name, opts
-
-exports.track 'app-open'
