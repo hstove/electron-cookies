@@ -1,6 +1,6 @@
 {
   "name": "electron-cookies",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Adds support for cookies in Electron.",
   "main": "src/index.js",
   "scripts": {

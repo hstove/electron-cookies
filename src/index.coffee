@@ -25,7 +25,7 @@ do (document) ->
 
   # Pretend that we're hosted on an Internet Website
   document.__defineGetter__ 'location', ->
-    url = 'neuro-valley-visual.com'
+    url = 'electron-renderer.com'
 
     href: 'http://' + url
     protocol: 'http:'

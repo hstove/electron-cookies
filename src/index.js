@@ -32,7 +32,7 @@
     };
     document.__defineGetter__('location', function() {
       var url;
-      url = 'neuro-valley-visual.com';
+      url = 'electron-renderer.com';
       return {
         href: 'http://' + url,
         protocol: 'http:',
