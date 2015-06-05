@@ -14,7 +14,7 @@
   ],
   "author": "Hank Stoever",
   "license": "MIT",
-  "homepage": "https://github.com/hstove/electron-cookies",
+  "repository": "hstove/electron-cookies",
   "devDependencies": {
     "chai": "^2.3.0",
     "grunt": "^0.4.5",
