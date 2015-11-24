@@ -12,8 +12,10 @@ describe 'document.cookies', ->
     expect(document.cookie).to.eql('blah; key=value')
     document.cookie = 'key2=value2'
     expect(document.cookie).to.eql('blah; key=value; key2=value2')
+
 describe 'document.clearCookies', ->
   it 'should clear cookies', ->
     expect(document.clearCookies()).to.eql(true)
     document.cookie = 'key2=value2'
     expect(document.clearCookies()).to.eql(true)
+    expect(document.cookie).to.eql('')
