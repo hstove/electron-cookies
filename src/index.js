@@ -3,7 +3,7 @@
     localStorage.cookies || (localStorage.cookies = '{}');
     document.__defineGetter__('cookie', function() {
       var cookieName, cookies, output, res, val, validName;
-      cookies = JSON.parse(localStorage.cookies);
+      cookies = JSON.parse(localStorage.cookies || '{}');
       output = [];
       for (cookieName in cookies) {
         val = cookies[cookieName];

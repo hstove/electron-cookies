@@ -1,7 +1,7 @@
 do (document) ->
   localStorage.cookies ||= '{}'
   document.__defineGetter__ 'cookie', ->
-    cookies = JSON.parse(localStorage.cookies)
+    cookies = JSON.parse(localStorage.cookies || '{}')
     output = []
     for cookieName, val of cookies
       validName = cookieName && cookieName.length > 0
