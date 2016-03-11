@@ -10,11 +10,12 @@ do (document) ->
     output.join '; '
 
   document.__defineSetter__ 'cookie', (s) ->
-    parts = s.split('=')
-    if parts.length == 2
-      [key, value] = parts
+    n = s.indexOf('=')
+    if n > 0
+      key = s.substring(0, n)
+      value = s.substring(n + 1)
     else
-      [value] = parts
+      value = s
       key = ''
     cookies = JSON.parse(localStorage.cookies || '{}')
     cookies[key] = value
