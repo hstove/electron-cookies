@@ -25,6 +25,7 @@
     "shoulda": "0.0.1"
   },
   "dependencies": {
-    "tough-cookie": "^2.3.4"
+    "tough-cookie": "^2.3.4",
+    "tough-cookie-web-storage-store": "^1.0.0"
   }
 }

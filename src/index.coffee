@@ -1,4 +1,6 @@
 tough = require 'tough-cookie'
+WebStorageCookieStore = require 'tough-cookie-web-storage-store'
+
 Cookie = tough.Cookie
 
 # This should resemble a real URI, but have a fake TLD. We don't want to have it so that
@@ -8,7 +10,9 @@ Cookie = tough.Cookie
 FAKE_APP_URI = 'https://yourdomain.heap/'
 
 do (document) ->
-  cookiejar = new tough.CookieJar()
+  store = new WebStorageCookieStore(localStorage)
+
+  cookiejar = new tough.CookieJar(store)
   document.__defineGetter__ 'cookie', ->
     cookiejar.getCookieStringSync FAKE_APP_URI
 
