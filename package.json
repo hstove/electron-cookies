@@ -23,5 +23,8 @@
     "grunt-simple-mocha": "^0.4.0",
     "mocha": "^2.2.4",
     "shoulda": "0.0.1"
+  },
+  "dependencies": {
+    "tough-cookie": "^2.3.4"
   }
 }
