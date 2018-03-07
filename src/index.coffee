@@ -1,29 +1,26 @@
+tough = require 'tough-cookie'
+Cookie = tough.Cookie
+
+# This should resemble a real URI, but have a fake TLD. We don't want to have it so that
+# it's possible to send these cookies to a domain someoen could register after the fact, but
+# for Heap, we need a real TLD because internally we try to determine the right level to set
+# a cookie.
+FAKE_APP_URI = 'https://yourdomain.heap/'
+
 do (document) ->
-  localStorage.cookies ||= '{}'
+  cookiejar = new tough.CookieJar()
   document.__defineGetter__ 'cookie', ->
-    cookies = JSON.parse(localStorage.cookies || '{}')
-    output = []
-    for cookieName, val of cookies
-      validName = cookieName && cookieName.length > 0
-      res = if validName then "#{cookieName}=#{val}" else val
-      output.push res
-    output.join '; '
+    #cookiejar.getCookies FAKE_APP_URI, (err, cookies) ->
+    #  return cookies
+    cookiejar.getCookieStringSync FAKE_APP_URI
 
   document.__defineSetter__ 'cookie', (s) ->
-    parts = s.split('=')
-    if parts.length == 2
-      [key, value] = parts
-    else
-      [value] = parts
-      key = ''
-    cookies = JSON.parse(localStorage.cookies || '{}')
-    cookies[key] = value
-    localStorage.cookies = JSON.stringify(cookies)
-    key + '=' + value
+    # Don't return anything or run the callback.
+    # cookiejar.setCookie Cookie.parse(s), FAKE_APP_URI
+    console.log s
+    cookiejar.setCookieSync Cookie.parse(s, {loose: true}), FAKE_APP_URI
 
-  document.clearCookies = -> delete localStorage.cookies
-
-  # Pretend that we're hosted on an Internet Website
+###
   document.__defineGetter__ 'location', ->
     url = 'electron-renderer.com'
 
@@ -40,3 +37,4 @@ do (document) ->
     origin: 'http://' + url
 
   document.__defineSetter__ 'location', ->
+###
