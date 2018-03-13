@@ -1,5 +1,29 @@
 # Electron Cookies
 
+Forked from https://github.com/hstove/electron-cookies
+
+Changes from the original:
+- Uses [Tough Cookie](https://github.com/salesforce/tough-cookie) for cookie parsing and storage.
+- Uses [Tough Cookie Web Storage](https://github.com/expo/tough-cookie-web-storage-store) to persist cookies in localStorage.
+- Converted to vanilla JavaScript.
+
+## Installation
+
+In your `package.json` include:
+
+```json
+dependencies: {
+  "electron-cookies": "heap/electron-cookies"
+}
+```
+
+Then in your app's renderer code, require the package:
+```js
+require('electron-cookies');
+```
+
+<details>
+  <summary>Original README</summary>
 (Formerly called `atom-shell-cookies`)
 
 Adds support for cookies in Electron. Cookies are persisted through localStorage.
@@ -29,3 +53,4 @@ require('electron-cookies')
 ## Contributing
 
 Original code is written in `src/index.coffee`, with tests at `spec/electron_cookies_spec.coffee`. Write code in coffeescript, and run `grunt` to compile coffeescript on the fly.
+</details>
