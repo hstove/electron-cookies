@@ -1,53 +1,26 @@
-(function() {
-  (function(document) {
-    localStorage.cookies || (localStorage.cookies = '{}');
-    document.__defineGetter__('cookie', function() {
-      var cookieName, cookies, output, res, val, validName;
-      cookies = JSON.parse(localStorage.cookies || '{}');
-      output = [];
-      for (cookieName in cookies) {
-        val = cookies[cookieName];
-        validName = cookieName && cookieName.length > 0;
-        res = validName ? cookieName + "=" + val : val;
-        output.push(res);
-      }
-      return output.join('; ');
-    });
-    document.__defineSetter__('cookie', function(s) {
-      var cookies, key, parts, value;
-      parts = s.split('=');
-      if (parts.length === 2) {
-        key = parts[0], value = parts[1];
-      } else {
-        value = parts[0];
-        key = '';
-      }
-      cookies = JSON.parse(localStorage.cookies || '{}');
-      cookies[key] = value;
-      localStorage.cookies = JSON.stringify(cookies);
-      return key + '=' + value;
-    });
-    document.clearCookies = function() {
-      return delete localStorage.cookies;
-    };
-    document.__defineGetter__('location', function() {
-      var url;
-      url = 'electron-renderer.com';
-      return {
-        href: 'http://' + url,
-        protocol: 'http:',
-        host: url,
-        hostname: url,
-        port: '',
-        pathname: '/',
-        search: '',
-        hash: '',
-        username: '',
-        password: '',
-        origin: 'http://' + url
-      };
-    });
-    return document.__defineSetter__('location', function() {});
-  })(document);
+const tough = require('tough-cookie');
+const WebStorageCookieStore = require('tough-cookie-web-storage-store');
 
-}).call(this);
+const { Cookie } = tough;
+
+// This should resemble a real URI, but have a fake TLD. We don't want to have it so that
+// it's possible to send these cookies to a domain someone could register after the fact, but
+// for Heap, we need a parseable URI because internally we try to determine the right level to set
+// a cookie, rather than having a known set of public suffix domains.
+const FAKE_APP_URI = 'https://yourdomain.heap/';
+
+(function(document) {
+  const store = new WebStorageCookieStore(localStorage);
+
+  const cookiejar = new tough.CookieJar(store);
+  Object.defineProperty(document, "cookie", {
+    get() {
+      return cookiejar.getCookieStringSync(FAKE_APP_URI);
+    },
+    set(cookie) {
+    // loose: true lets us accept cookies with key and no value, which the
+    // original tests for this library included.
+      cookiejar.setCookieSync(Cookie.parse(cookie, {loose: true}), FAKE_APP_URI)
+    }
+  });
+})(document);
