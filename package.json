@@ -1,6 +1,6 @@
 {
   "name": "electron-cookies",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Adds support for cookies in Electron.",
   "main": "src/index.js",
   "scripts": {
@@ -13,8 +13,11 @@
     "electron"
   ],
   "author": "Hank Stoever",
+  "contributors": [
+    "John Clover (https://github.com/radiofreejohn)"
+  ],
   "license": "MIT",
-  "repository": "hstove/electron-cookies",
+  "repository": "heap/electron-cookies",
   "devDependencies": {
     "chai": "^2.3.0",
     "grunt": "^0.4.5",
