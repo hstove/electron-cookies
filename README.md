@@ -1,3 +1,7 @@
+# Important! This repository has moved.
+
+For the currenlty maintained version, see [heap/electron-cookies](https://github.com/heap/electron-cookies).
+
 # Electron Cookies
 
 (Formerly called `atom-shell-cookies`)
