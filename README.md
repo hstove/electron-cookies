@@ -30,6 +30,16 @@ In your app's `renderer` code, just require this package:
 require('electron-cookies')
 ```
 
+## Limitations
+
+Electron Cookies adds a small shim so `document.cookie` works on the client-side as expected. It does not, however, enable Electron to process cookies as a browser normally would. Limitations include:
+
+- cookies will not automatically be sent along with domain-specific requests.
+- `set-cookie` response headers will not automatically be processed and set.
+- no support for `httpOnly`, `maxAge`, or other cookie options.
+
+If your use case relies on any of this additional cookie functionality, we recommend that you perform all cookie handling from Electron's `main` process and proxy the results back to the client-side `renderer`.
+
 ## Contributing
 
 Original code is written in `src/index.coffee`, with tests at `spec/electron_cookies_spec.coffee`. Write code in coffeescript, and run `grunt` to compile coffeescript on the fly.
