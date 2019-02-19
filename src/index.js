@@ -15,11 +15,11 @@
     });
     document.__defineSetter__('cookie', function(s) {
       var cookies, key, parts, value;
-      parts = s.split('=');
-      if (parts.length === 2) {
-        key = parts[0], value = parts[1];
+      n = s.indexOf('=');
+      if (n > 0) {
+        key = s.substring(0,n), value = s.substring(n+1);
       } else {
-        value = parts[0];
+        value = s;
         key = '';
       }
       cookies = JSON.parse(localStorage.cookies || '{}');
